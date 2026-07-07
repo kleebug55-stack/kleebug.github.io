@@ -1,0 +1,42 @@
+---
+import SiteFooter from "@components/SiteFooter.astro";
+import SiteHeader from "@components/SiteHeader.astro";
+import "@styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Kleebug",
+  description = "有个人温度的 AI 产品数字花园，沉淀方法论、项目复盘、学习路线和生活观察。",
+} = Astro.props;
+
+const pageTitle = title === "Kleebug" ? title : `${title} | Kleebug`;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#fafafa" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

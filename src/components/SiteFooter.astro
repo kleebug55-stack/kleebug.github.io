@@ -1,0 +1,61 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <p class="hand footer-title">Kleebug keeps growing.</p>
+      <p>把 AI 产品学习、项目实践和日常观察，整理成一个可以反复回来的地方。</p>
+    </div>
+    <div class="footer-links" aria-label="页脚链接">
+      <a href="/tags/">标签</a>
+      <a href="/about/">关于</a>
+      <a href="mailto:hello@kleebug.fun">联系</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-16);
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-10) 0;
+    color: var(--color-secondary);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-8);
+  }
+
+  .footer-title {
+    margin: 0;
+    color: var(--color-primary);
+  }
+
+  .footer-inner p {
+    max-width: 620px;
+    margin: 0.25rem 0 0;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer-links a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.45rem 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  @media (max-width: 700px) {
+    .footer-inner {
+      flex-direction: column;
+    }
+  }
+</style>

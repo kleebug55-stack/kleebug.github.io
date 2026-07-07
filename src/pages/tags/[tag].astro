@@ -1,0 +1,54 @@
+---
+import ContentCard from "@components/ContentCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getAllPublishedEntries, sortByDate, uniqueTags } from "@lib/content";
+
+export async function getStaticPaths() {
+  const entries = await getAllPublishedEntries();
+  return uniqueTags(entries).map((tag) => ({
+    params: { tag: encodeURIComponent(tag) },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+const entries = sortByDate((await getAllPublishedEntries()).filter((entry) => entry.data.tags.includes(tag)));
+---
+
+<BaseLayout title={`标签：${tag}`} description={`按 ${tag} 浏览 Kleebug 的内容。`}>
+  <section class="container listing">
+    <a class="back" href="/tags/">返回标签地图</a>
+    <p class="eyebrow">Tag</p>
+    <h1>{tag}</h1>
+    <p class="summary">这个标签下有 {entries.length} 篇内容。</p>
+    <div class="grid grid-3">
+      {entries.map((entry) => <ContentCard entry={entry} collection={entry.collection} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .listing {
+    padding-top: var(--space-12);
+  }
+
+  .back {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    margin-bottom: var(--space-5);
+    font-weight: 800;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.2rem, 7vw, 4.8rem);
+    line-height: 1.04;
+  }
+
+  .summary {
+    margin-bottom: var(--space-8);
+    color: var(--color-secondary);
+    font-size: 1.15rem;
+  }
+</style>

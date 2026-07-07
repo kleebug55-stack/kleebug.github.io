@@ -1,0 +1,50 @@
+---
+interface Props {
+  type?: "insight" | "note" | "warning";
+}
+
+const { type = "note" } = Astro.props;
+const labels = {
+  insight: "关键洞察",
+  note: "花园旁注",
+  warning: "需要留意",
+};
+---
+
+<aside class:list={["callout", type]}>
+  <p class="label">{labels[type]}</p>
+  <div>
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .callout {
+    margin: var(--space-8) 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: rgb(255 255 255 / 0.82);
+    padding: var(--space-5);
+  }
+
+  .insight {
+    border-color: rgb(37 99 235 / 0.25);
+    background: rgb(37 99 235 / 0.06);
+  }
+
+  .warning {
+    border-color: rgb(220 38 38 / 0.22);
+    background: rgb(220 38 38 / 0.05);
+  }
+
+  .label {
+    margin: 0 0 0.4rem;
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    font-weight: 900;
+  }
+
+  .callout :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

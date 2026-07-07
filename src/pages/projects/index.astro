@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import ContentCard from "@components/ContentCard.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { isPublished, sortByDate } from "@lib/content";
+
+const entries = sortByDate(await getCollection("projects", isPublished));
+---
+
+<BaseLayout title="项目" description="Kleebug 的 AI 产品项目、过程记录和复盘。">
+  <section class="container listing">
+    <SectionHeading
+      eyebrow="Projects"
+      title="项目"
+      description="关注问题定义、方案取舍、反馈闭环和下一轮迭代。"
+    />
+    <div class="grid grid-2">
+      {entries.map((entry) => <ContentCard entry={entry} collection="projects" featured={entry.data.featured} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .listing {
+    padding-top: var(--space-12);
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+title: "Dify 管理制度问答助手"
+date: 2026-07-07
+updated: 2026-07-07
+summary: "一个把企业制度文档转成可追问、可反馈、可迭代知识库的 AI 问答项目复盘。"
+tags: ["Dify", "知识库", "Agent", "项目复盘"]
+status: "growing"
+featured: true
+role: "产品设计 / 流程梳理 / 测试验收"
+period: "2 周"
+stack: ["Dify", "Markdown", "知识库检索"]
+outcome: "沉淀 6 个核心流程和 24 个测试场景"
+---
+
+import Callout from "../../components/Callout.astro";
+import MetricGrid from "../../components/MetricGrid.astro";
+import Timeline from "../../components/Timeline.astro";
+
+<MetricGrid
+  items={[
+    { label: "搭建周期", value: "2 周" },
+    { label: "核心流程", value: "6 个" },
+    { label: "测试场景", value: "24 个" },
+  ]}
+/>
+
+<Callout type="insight">
+这个项目最关键的不是问答，而是把数据、权限、反馈形成闭环。否则知识库只会变成另一个更难维护的搜索框。
+</Callout>
+
+## 背景
+
+制度文档常常分散在不同位置，用户真正的问题又不会按照文档目录来问。问答助手的目标是降低查询成本，同时让错误答案和缺失知识能被及时发现。
+
+## 过程
+
+<Timeline
+  items={[
+    { title: "整理知识边界", text: "先明确哪些制度可以公开检索，哪些需要权限或人工确认。" },
+    { title: "搭建问答原型", text: "用 Dify 快速连接知识库，验证召回、引用和追问体验。" },
+    { title: "设计测试集", text: "覆盖模糊问法、跨文档问题、无答案问题和边界问题。" },
+  ]}
+/>
+
+## 下一步
+
+后续需要把用户反馈、命中率、无答案问题和人工修正记录下来，形成知识库持续维护机制。

@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import ContentCard from "@components/ContentCard.astro";
+import SectionHeading from "@components/SectionHeading.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { isPublished, sortByDate } from "@lib/content";
+
+const entries = sortByDate(await getCollection("life", isPublished));
+---
+
+<BaseLayout title="生活切片" description="Kleebug 的生活观察和个人温度。">
+  <section class="container listing">
+    <SectionHeading
+      eyebrow="Life"
+      title="生活切片"
+      description="给技术和产品之外的自己留一点空间。"
+    />
+    <div class="grid grid-3">
+      {entries.map((entry) => <ContentCard entry={entry} collection="life" />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .listing {
+    padding-top: var(--space-12);
+  }
+</style>

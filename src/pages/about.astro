@@ -1,0 +1,34 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="关于" description="关于 Kleebug 和这个 AI 产品数字花园。">
+  <section class="narrow about prose">
+    <p class="eyebrow">About</p>
+    <h1>这里记录一个产品人在 AI 时代持续生长的轨迹。</h1>
+    <p>
+      Kleebug 不是营销型官网，也不是一次性作品集。它更像一个持续生长的个人知识与项目空间：有方法论、有复盘、有还没完全想明白的问题，也有一点生活里的温度。
+    </p>
+    <h2>我希望这里回答什么</h2>
+    <ul>
+      <li>AI 产品经理需要补哪些底层能力？</li>
+      <li>一个 Agent 产品怎样从想法走到可验证的闭环？</li>
+      <li>学习路线、案例、工具和 Prompt 能不能被整理成可复用的路径？</li>
+      <li>一个人如何在快速变化的技术周期里保持清醒和手感？</li>
+    </ul>
+    <h2>内容如何维护</h2>
+    <p>
+      新增内容优先放进 <code>src/content</code> 下对应集合，首页、列表页、标签页会自动读取。这样站点会跟着内容生长，而不是每次都手工改页面。
+    </p>
+    <p>
+      如果你想交流 AI 产品、Agent 应用或数字花园，可以写信到
+      <a href="mailto:hello@kleebug.fun">hello@kleebug.fun</a>。
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .about {
+    padding-top: var(--space-12);
+  }
+</style>

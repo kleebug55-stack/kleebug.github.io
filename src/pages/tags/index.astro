@@ -1,0 +1,80 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { collectionLabels, getAllPublishedEntries, uniqueTags } from "@lib/content";
+
+const entries = await getAllPublishedEntries();
+const tags = uniqueTags(entries);
+---
+
+<BaseLayout title="标签" description="按标签浏览 Kleebug 的文章、项目、笔记和资源。">
+  <section class="container tags-page">
+    <p class="eyebrow">Tags</p>
+    <h1>标签地图</h1>
+    <p>用标签连接文章、项目、笔记和资源，让内容之间自然长出路径。</p>
+    <div class="tag-cloud">
+      {
+        tags.map((tag) => {
+          const count = entries.filter((entry) => entry.data.tags.includes(tag)).length;
+          const groups = Array.from(
+            new Set(entries.filter((entry) => entry.data.tags.includes(tag)).map((entry) => collectionLabels[entry.collection])),
+          );
+          return (
+            <a href={`/tags/${encodeURIComponent(tag)}/`}>
+              <strong>{tag}</strong>
+              <span>{count} 篇 · {groups.join(" / ")}</span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .tags-page {
+    padding-top: var(--space-12);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.2rem, 7vw, 4.8rem);
+    line-height: 1.04;
+  }
+
+  .tags-page > p:not(.eyebrow) {
+    max-width: 680px;
+    color: var(--color-secondary);
+    font-size: 1.15rem;
+  }
+
+  .tag-cloud {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+
+  .tag-cloud a {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: rgb(255 255 255 / 0.76);
+    padding: var(--space-5);
+    text-decoration: none;
+  }
+
+  .tag-cloud strong,
+  .tag-cloud span {
+    display: block;
+  }
+
+  .tag-cloud span {
+    margin-top: 0.35rem;
+    color: var(--color-secondary);
+    font-size: 0.92rem;
+  }
+
+  @media (min-width: 760px) {
+    .tag-cloud {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

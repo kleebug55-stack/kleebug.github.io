@@ -1,0 +1,49 @@
+---
+interface Item {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="timeline">
+  {
+    items.map((item) => (
+      <li>
+        <h3>{item.title}</h3>
+        <p>{item.text}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .timeline {
+    display: grid;
+    gap: var(--space-4);
+    margin: var(--space-8) 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  p {
+    margin: 0.35rem 0 0;
+  }
+</style>

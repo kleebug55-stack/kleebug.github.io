@@ -21,9 +21,9 @@
 
 ## 常用命令
 
-当前目录尚未初始化 Astro 项目，也没有 `package.json`。正式初始化后，以 `package.json` 中的 scripts 为准。
+当前项目已初始化为 Astro 项目，以 `package.json` 中的 scripts 为准。
 
-预期常用命令：
+常用命令：
 
 ```bash
 npm install
@@ -34,8 +34,8 @@ npm run preview
 
 预期用途：
 
-- `npm run dev`：本地开发与页面预览
-- `npm run build`：构建静态站点，提交前必须确认通过
+- `npm run dev`：本地开发与页面预览，默认可访问 `http://127.0.0.1:4321/`
+- `npm run build`：类型检查并构建静态站点，提交前必须确认通过
 - `npm run preview`：预览构建产物
 
 如后续改用 `pnpm`、`yarn` 或新增 lint/test 脚本，应在本节更新为真实命令。
