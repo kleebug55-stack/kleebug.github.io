@@ -213,6 +213,15 @@ Astro 不限制交互。交互应放在真正有价值的地方：
 
 目标部署方式为 GitHub Actions 构建后发布到 GitHub Pages。
 
+当前项目已提供 `.github/workflows/deploy.yml`，推送到 `main` 后会执行：
+
+```bash
+npm ci
+npm run build
+```
+
+构建产物位于 `dist/`，由 GitHub Actions 发布到 Pages。不要把 `dist/index.html` 手动提交到仓库根目录。
+
 如果继续使用自定义域名 `kleebug.fun`：
 
 - 应在 `public/CNAME` 中写入 `kleebug.fun`
