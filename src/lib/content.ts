@@ -22,8 +22,10 @@ export type AnyEntry = CollectionEntry<SiteCollection>;
 
 export const siteCollections = ["articles", "projects", "notes", "resources", "life"] as const;
 
+export const showDrafts = import.meta.env.PUBLIC_KLEEBUG_SHOW_DRAFTS === "1";
+
 export function isPublished<T extends AnyEntry>(entry: T) {
-  return !entry.data.draft;
+  return showDrafts || !entry.data.draft;
 }
 
 export function sortByDate<T extends AnyEntry>(entries: T[]) {
@@ -40,6 +42,18 @@ export function formatDate(date: Date) {
 
 export function entryUrl(collection: SiteCollection, slug: string) {
   return `${collectionPaths[collection]}${slug}/`;
+}
+
+export function entryHref(entry: AnyEntry, collection: SiteCollection) {
+  if (collection === "resources" && "url" in entry.data && entry.data.url) {
+    return entry.data.url;
+  }
+
+  return entryUrl(collection, entry.slug);
+}
+
+export function isExternalHref(href: string) {
+  return /^https?:\/\//i.test(href);
 }
 
 export function statusLabel(status: string) {

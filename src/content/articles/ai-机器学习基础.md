@@ -8,7 +8,7 @@ featured: false
 readingTime: "6 分钟"
 ---
 
-<div style="max-width: 1200px; margin: 0 auto; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #292019; line-height: 1.6; background: #F3F8FE;">
+<div style="max-width: 1120px; margin: 0 auto; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #292019; line-height: 1.6; background: #F3F8FE;">
 <header style="text-align: center; margin-bottom: 20px; padding: 20px 20px; background: linear-gradient(135deg, #3C74F4 0%, #58B1FF 100%); color: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
 <p style="font-size: 1.2rem; max-width: 800px; margin: 0 auto 20px; opacity: 0.95;"><strong>打算做几个系列文章，系统地梳理AI产品经理所需的核心知识与思维框架，帮助产品人更好地理解AI、应用AI，更从容地转型成一个懂趋势、懂技术、懂工程、懂商业落地的AI产品人。</strong></p>
 <div style="background-color: rgba(255, 255, 255, 0.25); padding: 0px 20px; border-radius: 8px; margin-top: 0px;">

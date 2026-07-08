@@ -5,8 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "dev:drafts": "PUBLIC_KLEEBUG_SHOW_DRAFTS=1 ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro check && ASTRO_TELEMETRY_DISABLED=1 astro build",
-    "import:articles": "node scripts/import-html-articles.mjs",
+    "build:drafts": "PUBLIC_KLEEBUG_SHOW_DRAFTS=1 ASTRO_TELEMETRY_DISABLED=1 astro check && PUBLIC_KLEEBUG_SHOW_DRAFTS=1 ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "import:content": "node scripts/import-content.mjs",
+    "import:articles": "node scripts/import-content.mjs articles imports/articles-html",
+    "draft:articles": "node scripts/import-content.mjs articles --draft",
+    "draft:projects": "node scripts/import-content.mjs projects --draft",
+    "draft:resources": "node scripts/import-content.mjs resources --draft",
+    "publish:articles": "node scripts/import-content.mjs articles --publish",
+    "publish:projects": "node scripts/import-content.mjs projects --publish",
+    "publish:resources": "node scripts/import-content.mjs resources --publish",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview"
   },
   "dependencies": {

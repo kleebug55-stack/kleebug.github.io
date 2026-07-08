@@ -3,5 +3,8 @@ import mdx from "@astrojs/mdx";
 
 export default defineConfig({
   site: "https://kleebug.fun",
+  devToolbar: {
+    enabled: false,
+  },
   integrations: [mdx()],
 });

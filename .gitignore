@@ -44,6 +44,7 @@ Thumbs.db
 # Local-only notes and drafts
 drafts/
 private/
+private-assets/
 private-notes/
 _private/
 _drafts/
@@ -60,6 +61,16 @@ references-private/
 imports/articles-html/*
 !imports/articles-html/.gitkeep
 !imports/articles-html/README.md
+imports/content/**
+!imports/content/
+!imports/content/.gitkeep
+!imports/content/README.md
+!imports/content/articles/
+!imports/content/articles/.gitkeep
+!imports/content/projects/
+!imports/content/projects/.gitkeep
+!imports/content/resources/
+!imports/content/resources/.gitkeep
 
 # Temporary files
 tmp/

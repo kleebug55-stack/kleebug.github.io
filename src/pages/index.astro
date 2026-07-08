@@ -61,22 +61,36 @@ const researchItems = [
     <div class="container hero-grid">
       <div class="hero-copy">
         <p class="eyebrow">AI Product Digital Garden</p>
-        <h1><span class="hand">Kleebug</span> 是一个有个人温度的 AI 产品数字花园。</h1>
+        <h1><span class="hand">Kleebug</span><span>探索 AI 与产品创新的无限可能</span></h1>
         <p class="hero-intro">
-          这里沉淀方法论、项目复盘、学习路线和生活观察，记录一个产品人在 AI 时代持续生长的轨迹。
+          是个有温度的AI产品数字花园，记录AI实践、技术探索与产品创新旅程
         </p>
         <div class="hero-research" aria-label="最近在研究">
           <p class="panel-label">最近在研究</p>
-          <ul>
-            {
-              researchItems.map((item) => (
-                <li>
-                  <span aria-hidden="true"></span>
-                  {item}
-                </li>
-              ))
-            }
-          </ul>
+          <div class="research-marquee">
+            <div class="research-track">
+              <ul class="research-set">
+                {
+                  researchItems.map((item) => (
+                    <li tabindex="0" aria-label={item}>
+                      <span aria-hidden="true"></span>
+                      {item}
+                    </li>
+                  ))
+                }
+              </ul>
+              <ul class="research-set" aria-hidden="true">
+                {
+                  researchItems.map((item) => (
+                    <li tabindex="-1">
+                      <span aria-hidden="true"></span>
+                      {item}
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
       <aside class="hero-workbench" aria-label="Kleebug 内容工作台">
@@ -196,39 +210,6 @@ const researchItems = [
     revealItems.forEach((item) => item.setAttribute("data-visible", "true"));
   }
 
-  const researchTrack = document.querySelector<HTMLElement>(".hero-research ul");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-  if (researchTrack && !reduceMotion.matches) {
-    let paused = false;
-    let researchOffset = researchTrack.scrollLeft;
-
-    const pause = () => {
-      paused = true;
-      researchOffset = researchTrack.scrollLeft;
-    };
-    const resume = () => {
-      paused = false;
-    };
-
-    researchTrack.addEventListener("pointerenter", pause);
-    researchTrack.addEventListener("pointerleave", resume);
-    researchTrack.addEventListener("focusin", pause);
-    researchTrack.addEventListener("focusout", resume);
-
-    const scrollResearch = () => {
-      if (!paused) {
-        const maxScroll = researchTrack.scrollWidth - researchTrack.clientWidth;
-        if (maxScroll > 0) {
-          researchOffset = researchOffset >= maxScroll - 1 ? 0 : researchOffset + 0.45;
-          researchTrack.scrollLeft = researchOffset;
-        }
-      }
-      window.requestAnimationFrame(scrollResearch);
-    };
-
-    window.requestAnimationFrame(scrollResearch);
-  }
 </script>
 
 <style>
@@ -253,10 +234,16 @@ const researchItems = [
   }
 
   h1 {
+    display: grid;
+    gap: var(--space-2);
     max-width: 920px;
     margin: 0;
     font-size: clamp(2.45rem, 6.7vw, 5.35rem);
     line-height: 1.02;
+  }
+
+  h1 .hand {
+    width: fit-content;
   }
 
   .hero-intro {
@@ -269,9 +256,9 @@ const researchItems = [
   .hero-research {
     position: relative;
     width: 100%;
-    max-width: min(680px, 100%);
+    max-width: min(760px, 100%);
     margin-top: var(--space-3);
-    overflow: hidden;
+    overflow: visible;
     padding: 0;
   }
 
@@ -279,29 +266,44 @@ const researchItems = [
     margin-bottom: var(--space-2);
   }
 
-  .hero-research ul {
-    display: flex;
-    width: 100%;
-    gap: var(--space-2);
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-padding-inline: var(--space-3);
-    margin: 0;
-    padding: 0 var(--space-8) var(--space-2) 0;
-    color: var(--color-secondary);
-    list-style: none;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 88%, transparent);
+  .research-marquee {
+    overflow: hidden;
+    margin: -0.7rem -1rem -0.9rem;
+    padding: 0.7rem 1rem 0.9rem;
+    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 90%, transparent);
   }
 
-  .hero-research ul::-webkit-scrollbar {
-    display: none;
+  .research-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .research-set {
+    display: flex;
+    flex: 0 0 auto;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0 var(--space-4) 0 0;
+    color: var(--color-secondary);
+    list-style: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .research-track {
+      animation: research-marquee 24s linear infinite;
+    }
+
+    .hero-research:hover .research-track,
+    .hero-research:focus-within .research-track {
+      animation-play-state: paused;
+    }
   }
 
   .hero-research li {
+    position: relative;
     display: flex;
-    flex: 0 0 min(260px, 70vw);
+    flex: 0 0 auto;
     min-height: 48px;
     align-items: center;
     gap: var(--space-2);
@@ -313,7 +315,27 @@ const researchItems = [
     padding: 0.48rem 0.72rem 0.48rem 0.58rem;
     font-size: 0.86rem;
     font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
     box-shadow: 0 10px 24px rgb(73 54 28 / 0.08);
+    transform-origin: center;
+    transition:
+      transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 220ms ease,
+      border-color 220ms ease,
+      background 220ms ease;
+  }
+
+  .hero-research li:hover,
+  .hero-research li:focus,
+  .hero-research li:focus-visible {
+    z-index: 2;
+    border-color: rgb(var(--color-accent-rgb) / 0.34);
+    background:
+      linear-gradient(135deg, rgb(var(--color-accent-rgb) / 0.16), transparent 68%),
+      rgb(255 250 241 / 0.98);
+    box-shadow: 0 16px 34px rgb(73 54 28 / 0.14);
+    transform: scale(1.08);
   }
 
   .hero-research li span {
@@ -339,6 +361,12 @@ const researchItems = [
 
   .hero-research li:nth-child(3) span::before {
     content: "03";
+  }
+
+  @keyframes research-marquee {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
   }
 
   .hero-workbench {
@@ -549,15 +577,11 @@ const researchItems = [
 
   [data-reveal] {
     opacity: 0;
-    transform: translateY(18px);
-    transition:
-      opacity 420ms ease,
-      transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: opacity 320ms ease;
   }
 
   [data-reveal][data-visible="true"] {
     opacity: 1;
-    transform: translateY(0);
   }
 
   @media (prefers-reduced-motion: no-preference) {

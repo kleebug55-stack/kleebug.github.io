@@ -159,6 +159,25 @@ related:
 - 组件要可复用
 - 不要让内容创作依赖复杂代码
 
+### 详情页样式库
+
+文章、项目、笔记、资源和生活内容的详情页统一使用 `src/layouts/ContentDetailLayout.astro` 承载，不应在各个 `[slug].astro` 页面中重复编写标题区、元信息区和正文宽度样式。
+
+后续新增或迁移内容时，样式参考：
+
+```txt
+design-system/kleebug/CONTENT_DETAIL_STYLE.md
+```
+
+项目复盘、长文和重点案例优先沿用 Dify 项目详情页形成的标准模块：
+
+- `MetricGrid.astro`：结果、周期、规模等指标
+- `Callout.astro`：洞察、旁注、风险提醒
+- `Timeline.astro`：过程、路线、迭代记录
+- `Gallery.astro`：截图、过程图、案例图
+
+原则：通过 frontmatter 和 MDX 内容块驱动呈现，不为单篇内容临时改页面模板。
+
 ### 首页规范
 
 首页是入口地图，不是炫耀页。

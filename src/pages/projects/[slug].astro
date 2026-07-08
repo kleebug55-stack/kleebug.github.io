@@ -1,9 +1,7 @@
 ---
 import { getCollection } from "astro:content";
-import StatusPill from "@components/StatusPill.astro";
-import TagList from "@components/TagList.astro";
-import BaseLayout from "@layouts/BaseLayout.astro";
-import { formatDate, isPublished } from "@lib/content";
+import ContentDetailLayout from "@layouts/ContentDetailLayout.astro";
+import { isPublished } from "@lib/content";
 
 export async function getStaticPaths() {
   const entries = await getCollection("projects", isPublished);
@@ -12,89 +10,22 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+const metaItems = [
+  { label: "角色", value: entry.data.role },
+  { label: "周期", value: entry.data.period },
+  { label: "结果", value: entry.data.outcome },
+];
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.summary}>
-  <article class="narrow article">
-    <header>
-      <p class="eyebrow">项目复盘</p>
-      <h1>{entry.data.title}</h1>
-      <p class="summary">{entry.data.summary}</p>
-      <dl class="project-meta">
-        {entry.data.role && <div><dt>角色</dt><dd>{entry.data.role}</dd></div>}
-        {entry.data.period && <div><dt>周期</dt><dd>{entry.data.period}</dd></div>}
-        {entry.data.outcome && <div><dt>结果</dt><dd>{entry.data.outcome}</dd></div>}
-      </dl>
-      <div class="meta">
-        <span>{formatDate(entry.data.date)}</span>
-        <StatusPill status={entry.data.status} />
-      </div>
-      <TagList tags={entry.data.tags} />
-    </header>
-    <div class="prose">
-      <Content />
-    </div>
-  </article>
-</BaseLayout>
-
-<style>
-  .article {
-    padding-top: var(--space-12);
-  }
-
-  header {
-    margin-bottom: var(--space-10);
-  }
-
-  h1 {
-    margin: 0;
-    font-size: clamp(2.2rem, 7vw, 4.8rem);
-    line-height: 1.04;
-  }
-
-  .summary {
-    color: var(--color-secondary);
-    font-size: 1.18rem;
-  }
-
-  .project-meta {
-    display: grid;
-    gap: var(--space-3);
-    margin: var(--space-6) 0;
-  }
-
-  .project-meta div {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    background: rgb(255 255 255 / 0.72);
-    padding: var(--space-4);
-  }
-
-  dt {
-    color: var(--color-ink-soft);
-    font-size: 0.82rem;
-    font-weight: 800;
-  }
-
-  dd {
-    margin: 0.25rem 0 0;
-    color: var(--color-primary);
-    font-weight: 800;
-  }
-
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-3);
-    margin: var(--space-5) 0;
-    color: var(--color-ink-soft);
-    font-weight: 800;
-  }
-
-  @media (min-width: 700px) {
-    .project-meta {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-</style>
+<ContentDetailLayout
+  title={entry.data.title}
+  description={entry.data.summary}
+  eyebrow="项目复盘"
+  date={entry.data.date}
+  updated={entry.data.updated}
+  status={entry.data.status}
+  tags={entry.data.tags}
+  metaItems={metaItems}
+>
+  <Content />
+</ContentDetailLayout>

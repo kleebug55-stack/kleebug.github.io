@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import ContentCard from "@components/ContentCard.astro";
+import ProjectCard from "@components/ProjectCard.astro";
 import SectionHeading from "@components/SectionHeading.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { isPublished, sortByDate } from "@lib/content";
@@ -16,7 +16,7 @@ const entries = sortByDate(await getCollection("projects", isPublished));
       description="关注问题定义、方案取舍、反馈闭环和下一轮迭代。"
     />
     <div class="grid grid-2">
-      {entries.map((entry) => <ContentCard entry={entry} collection="projects" featured={entry.data.featured} />)}
+      {entries.map((entry) => <ProjectCard entry={entry} />)}
     </div>
   </section>
 </BaseLayout>

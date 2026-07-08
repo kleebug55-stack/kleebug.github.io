@@ -1,7 +1,7 @@
 ---
 import StatusPill from "@components/StatusPill.astro";
 import TagList from "@components/TagList.astro";
-import { collectionLabels, entryUrl, formatDate, type AnyEntry, type SiteCollection } from "@lib/content";
+import { collectionLabels, entryHref, formatDate, isExternalHref, type AnyEntry, type SiteCollection } from "@lib/content";
 
 interface Props {
   entry: AnyEntry;
@@ -10,19 +10,35 @@ interface Props {
 }
 
 const { entry, collection, featured = false } = Astro.props;
-const href = entryUrl(collection, entry.slug);
+const href = entryHref(entry, collection);
+const isResource = collection === "resources";
+const isExternal = isResource && isExternalHref(href);
+const cover = entry.data.cover;
 ---
 
 <article class:list={["content-card", `collection-${collection}`, { featured }]}>
-  <div class="meta">
-    <span>{collectionLabels[collection]}</span>
-    <span>{formatDate(entry.data.date)}</span>
-  </div>
-  <h3><a href={href}>{entry.data.title}</a></h3>
-  <p>{entry.data.summary}</p>
-  <div class="card-footer">
-    <StatusPill status={entry.data.status} />
-    <TagList tags={entry.data.tags.slice(0, 3)} />
+  {
+    cover && (
+      <a class="card-cover" href={href} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noreferrer" : undefined}>
+        <img src={cover} alt={`${entry.data.title} 封面`} loading="lazy" width="720" height="420" />
+      </a>
+    )
+  }
+  <div class="card-body">
+    <div class="meta">
+      <span>{collectionLabels[collection]}</span>
+      <span>{isResource ? "外部资源" : formatDate(entry.data.date)}</span>
+    </div>
+    <h3>
+      <a href={href} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noreferrer" : undefined}>
+        {entry.data.title}
+      </a>
+    </h3>
+    <p>{entry.data.summary}</p>
+    <div class="card-footer">
+      <StatusPill status={entry.data.status} />
+      <TagList tags={entry.data.tags.slice(0, 3)} />
+    </div>
   </div>
 </article>
 
@@ -44,6 +60,39 @@ const href = entryUrl(collection, entry.slug);
       transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
       box-shadow 220ms ease,
       border-color 220ms ease;
+  }
+
+  .card-cover {
+    position: relative;
+    z-index: 1;
+    display: block;
+    aspect-ratio: 12 / 7;
+    margin: calc(var(--space-6) * -1) calc(var(--space-6) * -1) 0;
+    overflow: hidden;
+    background: var(--color-muted);
+  }
+
+  .card-cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .content-card:hover .card-cover img {
+    transform: scale(1.035);
+  }
+
+  .card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-cover + .card-body {
+    padding-top: var(--space-5);
   }
 
   .content-card::before {
