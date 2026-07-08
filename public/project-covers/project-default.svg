@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" role="img" aria-labelledby="title desc">
+  <title id="title">Kleebug 项目封面</title>
+  <desc id="desc">A warm abstract cover for Kleebug project cards.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffaf1"/>
+      <stop offset=".6" stop-color="#eadfce"/>
+      <stop offset="1" stop-color="#b8d7b6"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="420" fill="url(#bg)"/>
+  <rect x="88" y="82" width="544" height="256" rx="30" fill="#fffaf1" stroke="#d8c8b1"/>
+  <rect x="130" y="130" width="190" height="18" rx="9" fill="#24211b"/>
+  <rect x="130" y="176" width="360" height="12" rx="6" fill="#d8c8b1"/>
+  <rect x="130" y="208" width="298" height="12" rx="6" fill="#d8c8b1"/>
+  <rect x="130" y="250" width="150" height="54" rx="18" fill="#0d6f70"/>
+  <circle cx="552" cy="142" r="44" fill="#f4c46e"/>
+  <text x="552" y="158" text-anchor="middle" font-family="Georgia, serif" font-size="44" font-weight="700" fill="#24211b">K</text>
+</svg>

@@ -4,13 +4,57 @@
       <p class="hand footer-title">Kleebug keeps growing.</p>
       <p>把 AI 产品学习、项目实践和日常观察，整理成一个可以反复回来的地方。</p>
     </div>
-    <div class="footer-links" aria-label="页脚链接">
-      <a href="/tags/">标签</a>
-      <a href="/about/">关于</a>
-      <a href="mailto:hello@kleebug.fun">联系</a>
+    <div class="footer-contact">
+      <button class="contact-trigger" type="button" aria-expanded="false" aria-controls="wechat-popover">
+        联系我
+      </button>
+      <div class="wechat-popover" id="wechat-popover" hidden>
+        <button class="popover-close" type="button" aria-label="关闭联系浮窗">×</button>
+        <p class="popover-title">加微信</p>
+        <img src="/wechat-qr.svg" alt="Kleebug 微信二维码" width="180" height="180" loading="lazy" />
+        <p class="popover-note">扫码添加微信</p>
+      </div>
+      <a class="beian-link" href="http://beian.miit.gov.cn/" target="_blank" rel="noreferrer">
+        粤ICP备2024331771号-1
+      </a>
     </div>
   </div>
 </footer>
+
+<script>
+  const footerContact = document.querySelector<HTMLElement>(".footer-contact");
+  const contactTrigger = document.querySelector<HTMLButtonElement>(".contact-trigger");
+  const popover = document.querySelector<HTMLElement>("#wechat-popover");
+  const closeButton = document.querySelector<HTMLButtonElement>(".popover-close");
+
+  function setPopover(open: boolean) {
+    if (!contactTrigger || !popover) return;
+    popover.hidden = !open;
+    contactTrigger.setAttribute("aria-expanded", String(open));
+  }
+
+  contactTrigger?.addEventListener("click", () => {
+    setPopover(popover?.hidden ?? true);
+  });
+
+  closeButton?.addEventListener("click", () => {
+    setPopover(false);
+    contactTrigger?.focus();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!footerContact?.contains(event.target as Node)) {
+      setPopover(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setPopover(false);
+      contactTrigger?.focus();
+    }
+  });
+</script>
 
 <style>
   .site-footer {
@@ -37,25 +81,128 @@
     margin: 0.25rem 0 0;
   }
 
-  .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .beian-link {
+    display: inline-flex;
+    color: var(--color-secondary);
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
   }
 
-  .footer-links a {
+  .beian-link:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-contact {
+    position: relative;
+    display: grid;
+    justify-items: end;
+    gap: 0.25rem;
+    min-width: max-content;
+    text-align: right;
+  }
+
+  .contact-trigger {
     display: inline-flex;
     min-height: 44px;
     align-items: center;
+    border: 0;
+    background: transparent;
+    color: var(--color-primary);
+    padding: 0;
+    font: inherit;
+    font-weight: 900;
+    cursor: pointer;
+    transition:
+      color 180ms ease,
+      text-decoration-color 180ms ease;
+    text-decoration-line: underline;
+    text-decoration-color: rgb(var(--color-accent-rgb) / 0.28);
+    text-decoration-thickness: 0.12em;
+    text-underline-offset: 0.28em;
+  }
+
+  .contact-trigger:hover,
+  .contact-trigger[aria-expanded="true"] {
+    color: var(--color-accent);
+    text-decoration-color: rgb(var(--color-accent-rgb) / 0.72);
+  }
+
+  .wechat-popover {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0.75rem);
+    z-index: 30;
+    width: min(240px, calc(100vw - 32px));
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--surface-background);
+    box-shadow: var(--shadow-hover);
+    padding: var(--space-5);
+    text-align: center;
+  }
+
+  .wechat-popover[hidden] {
+    display: none;
+  }
+
+  .popover-close {
+    position: absolute;
+    top: 0.55rem;
+    right: 0.55rem;
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    border: 0;
     border-radius: 999px;
-    padding: 0.45rem 0.75rem;
+    background: rgb(23 37 29 / 0.08);
+    color: var(--color-primary);
+    font: inherit;
+    font-size: 1.2rem;
+    font-weight: 900;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .popover-title {
+    margin: 0 0 var(--space-3);
+    color: var(--color-primary);
+    font-weight: 900;
+  }
+
+  .wechat-popover img {
+    display: block;
+    width: 180px;
+    height: 180px;
+    margin-inline: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: #fff;
+  }
+
+  .popover-note {
+    margin: var(--space-3) 0 0;
+    color: var(--color-secondary);
+    font-size: 0.88rem;
     font-weight: 700;
-    text-decoration: none;
   }
 
   @media (max-width: 700px) {
     .footer-inner {
       flex-direction: column;
+    }
+
+    .footer-contact {
+      justify-items: start;
+      min-width: 0;
+      text-align: left;
+    }
+
+    .wechat-popover {
+      right: auto;
+      left: 0;
+      bottom: calc(100% + 0.75rem);
     }
   }
 </style>

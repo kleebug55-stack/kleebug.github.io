@@ -56,6 +56,11 @@ source-assets/
 original-assets/
 references-private/
 
+# Local HTML import inbox
+imports/articles-html/*
+!imports/articles-html/.gitkeep
+!imports/articles-html/README.md
+
 # Temporary files
 tmp/
 temp/
@@ -63,4 +68,3 @@ temp/
 *.tmp
 *.bak
 *.swp
-
