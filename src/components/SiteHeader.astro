@@ -12,7 +12,7 @@ const current = Astro.url.pathname;
 <header class="site-header">
   <nav class="container nav" aria-label="主导航">
     <a class="brand" href="/" aria-label="Kleebug 首页">
-      <img class="brand-logo" src="/images/common/kleebug-logo-nav.png" alt="Kleebug" width="260" height="90" />
+      <img class="brand-logo" src="/images/common/kleebug-logo-nav.png?v=4" alt="Kleebug" width="112" height="39" />
     </a>
     <div class="nav-area">
       <div class="nav-links">
@@ -45,22 +45,22 @@ const current = Astro.url.pathname;
   .nav {
     display: flex;
     width: 100%;
-    min-height: 60px;
+    min-height: 56px;
     align-items: center;
     justify-content: space-between;
     gap: 0.8rem;
-    padding-inline: 0.45rem 0.6rem;
+    padding: 0.28rem 0.42rem;
   }
 
   .brand {
     display: inline-flex;
-    min-height: 44px;
+    min-height: 40px;
     align-items: center;
-    gap: 0.62rem;
     border-radius: 999px;
     color: var(--color-primary);
     font-weight: 800;
     text-decoration: none;
+    padding: 0 0.55rem;
     transition:
       background 180ms ease,
       transform 180ms ease;
@@ -74,9 +74,9 @@ const current = Astro.url.pathname;
 
   .brand-logo {
     display: block;
-    width: clamp(196px, 24vw, 260px);
+    width: clamp(96px, 11vw, 112px);
     height: auto;
-    max-height: 90px;
+    max-height: 39px;
     object-position: left center;
   }
 
@@ -90,20 +90,17 @@ const current = Astro.url.pathname;
     align-items: center;
     gap: 0.35rem;
     overflow-x: auto;
-    border: 1px solid rgb(36 33 27 / 0.08);
-    border-radius: 999px;
-    background: rgb(255 250 241 / 0.56);
-    padding: 0.28rem;
+    padding: 0;
   }
 
   .nav-links a {
     display: inline-flex;
     min-width: 76px;
-    min-height: 44px;
+    min-height: 40px;
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    padding: 0.48rem 1.2rem;
+    padding: 0.42rem 1rem;
     color: var(--color-secondary);
     font-size: 0.94rem;
     font-weight: 900;
@@ -135,11 +132,11 @@ const current = Astro.url.pathname;
       min-height: auto;
       align-items: center;
       flex-flow: row wrap;
-      padding-block: 0.6rem;
+      padding: 0.42rem;
     }
 
     .brand-logo {
-      width: min(58vw, 196px);
+      width: min(36vw, 96px);
       max-height: none;
     }
 
@@ -150,7 +147,6 @@ const current = Astro.url.pathname;
     .nav-links {
       order: 3;
       width: 100%;
-      border-radius: var(--radius-md);
       justify-content: space-between;
     }
 
